@@ -63,6 +63,6 @@ resource "azurerm_windows_virtual_machine" "test" {
   }
 
   admin_username = "adminuser"
-  admin_password = var.admin_password
+  admin_password = "Th!$!$test!!"
 }
 
