@@ -49,6 +49,12 @@ resource "azurerm_windows_virtual_machine" "test" {
   network_interface_ids = [azurerm_network_interface.test.id]
   size                  = "Standard_B2s"
 
+  os_profile {
+    computer_name  = "test-vm"
+    admin_username = "adminuser"
+    admin_password = var.admin_password
+  }
+
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
@@ -61,8 +67,9 @@ resource "azurerm_windows_virtual_machine" "test" {
     caching           = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
+}
 
-  admin_username = "adminuser"
-  admin_password = "Th!$!$test!!"
+variable "admin_password" {
+  type = "Th!$!$test!!"
 }
 
