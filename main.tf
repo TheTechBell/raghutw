@@ -90,10 +90,10 @@ resource "azurerm_storage_account" "my_storage_account" {
 }
 
 # Create (and display) an SSH key
-resource "tls_private_key" "example_ssh" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+#resource "tls_private_key" "example_ssh" {
+#  algorithm = "RSA"
+#  rsa_bits  = 4096
+#}
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
@@ -122,7 +122,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = tls_private_key.example_ssh.public_key_openssh
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJubBXlfdhKDL887+V0U2Gby1bPM8JcJVMnt5xn4zHXf2UNplHpWOyZ0SW7vru5i7wtbfukj1WvJGq8C2g44KFPL/4rJh5JpVebvn/aYxxV6Bx3DC2nk4ocFGet3keuEPzH/NUd7AtNRKwptc4JRPIVbFYhR+iBeqo3egkdB5wj44Ems6bnTnE96szXOLZCPHhpjUXpm+VCU2V8GFL3QLpsidrpP/ihcUHTxWrxuDAzbiMktEjFOhLDqD2TqIn5UkhsCL38haoSnjmaT1nv0f/gL8apyDlAD75dcrZHD925Vnishp6a6M05hdWsSz6KXzhAg2kjWmBVTtGilkTUT1z3GZSfJOvS/ODV71L5Oh7ut81JkXvcDTwrbsx3pAk4rpTTVEBq4edjpAKTT2Jghjqw+UYyE0wPzPXatDzvQUh/ANkMbvOFVdKdCsSdbfOYJtUUD47ULI/rxy8urpDbZUnziML4hJEwqEayqh584rxDvBC85rRUa/yqov9A2wr3gE= generated-by-azure"
   }
 
   boot_diagnostics {
