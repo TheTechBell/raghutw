@@ -1,14 +1,6 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "= 2.0.0"
-    }
-  }
-}
-
 provider "azurerm" {
   features {}
+  version = "=2.0.0"
 }
 
 variable "location" {
@@ -31,13 +23,22 @@ variable "node_vm_size" {
   default = "Standard_DS2_v2"
 }
 
-variable "admin_username" {}
+# You need to provide a value for these variables either in the terraform.tfvars file or as a command-line argument
+variable "admin_username" {
+  # No default value set
+}
 
-variable "ssh_public_key" {}
+variable "ssh_public_key" {
+  # No default value set
+}
 
-variable "service_principal_id" {}
+variable "service_principal_id" {
+  # No default value set
+}
 
-variable "service_principal_secret" {}
+variable "service_principal_secret" {
+  # No default value set
+}
 
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
