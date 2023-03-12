@@ -52,7 +52,7 @@ resource "azurerm_windows_virtual_machine" "test" {
   os_profile {
     computer_name  = "test-vm"
     admin_username = "adminuser"
-    admin_password = var.admin_password
+    admin_password = "Th!$!$test!!"
   }
 
   storage_image_reference {
@@ -69,7 +69,4 @@ resource "azurerm_windows_virtual_machine" "test" {
   }
 }
 
-variable "admin_password" {
-  type = "Th!$!$test!!"
-}
 
