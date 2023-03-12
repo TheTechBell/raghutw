@@ -1,110 +1,66 @@
-provider "azurerm" {
-  features {}
-  version = "=2.0.0"
-}
-
-variable "location" {
-  default = "eastus"
-}
-
-variable "resource_group_name" {
-  default = "my-aks-rg"
-}
-
-variable "aks_name" {
-  default = "my-aks"
-}
-
-variable "node_count" {
-  default = 1
-}
-
-variable "node_vm_size" {
-  default = "Standard_DS2_v2"
-}
-
-# You need to provide a value for these variables either in the terraform.tfvars file or as a command-line argument
-variable "admin_username" {
-  # No default value set
-}
-
-variable "ssh_public_key" {
-  # No default value set
-}
-
-variable "service_principal_id" {
-  # No default value set
-}
-
-variable "service_principal_secret" {
-  # No default value set
+# Generate random resource group name
+resource "random_pet" "rg_name" {
+  prefix = var.resource_group_name_prefix
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = var.location
+  location = var.resource_group_location
+  name     = random_pet.rg_name.id
 }
 
-resource "azurerm_kubernetes_service" "aks" {
-  depends_on = [
-    azurerm_resource_group.rg,
-  ]
+resource "random_id" "log_analytics_workspace_name_suffix" {
+  byte_length = 8
+}
 
-  name                = var.aks_name
-  location            = var.location
+resource "azurerm_log_analytics_workspace" "test" {
+  location            = var.log_analytics_workspace_location
+  # The WorkSpace name has to be unique across the whole of azure;
+  # not just the current subscription/tenant.
+  name                = "${var.log_analytics_workspace_name}-${random_id.log_analytics_workspace_name_suffix.dec}"
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = var.aks_name
-  node_resource_group = azurerm_resource_group.rg.name
+  sku                 = var.log_analytics_workspace_sku
+}
+
+resource "azurerm_log_analytics_solution" "test" {
+  location              = azurerm_log_analytics_workspace.test.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  solution_name         = "ContainerInsights"
+  workspace_name        = azurerm_log_analytics_workspace.test.name
+  workspace_resource_id = azurerm_log_analytics_workspace.test.id
+
+  plan {
+    product   = "OMSGallery/ContainerInsights"
+    publisher = "Microsoft"
+  }
+}
+
+resource "azurerm_kubernetes_cluster" "k8s" {
+  location            = azurerm_resource_group.rg.location
+  name                = var.cluster_name
+  resource_group_name = azurerm_resource_group.rg.name
+  dns_prefix          = var.dns_prefix
+  tags                = {
+    Environment = "Development"
+  }
 
   default_node_pool {
-    name            = "default"
-    node_count      = var.node_count
-    vm_size         = var.node_vm_size
-    os_disk_size_gb = 30
+    name       = "agentpool"
+    vm_size    = "Standard_B2s"
+    node_count = var.agent_count
   }
-
-  service_principal {
-    client_id     = var.service_principal_id
-    client_secret = var.service_principal_secret
-  }
-
-  tags = {
-    Environment = "dev"
-  }
-}
-
-resource "azurerm_kubernetes_cluster" "aks" {
-  depends_on = [
-    azurerm_resource_group.rg,
-  ]
-
-  name                = var.aks_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = var.aks_name
-
   linux_profile {
-    admin_username = var.admin_username
+    admin_username = "ubuntu"
 
     ssh_key {
-      key_data = var.ssh_public_key
+      key_data = file(var.ssh_public_key)
     }
   }
-
-  default_node_pool {
-    name            = "default"
-    node_count      = var.node_count
-    vm_size         = var.node_vm_size
-    os_disk_size_gb = 30
+  network_profile {
+    network_plugin    = "kubenet"
+    load_balancer_sku = "standard"
   }
-
   service_principal {
-    client_id     = var.service_principal_id
-    client_secret = var.service_principal_secret
-  }
-
-  tags = {
-    Environment = "dev"
+    client_id     = var.aks_service_principal_app_id
+    client_secret = var.aks_service_principal_client_secret
   }
 }
-
