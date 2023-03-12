@@ -54,6 +54,6 @@ resource "azurerm_windows_virtual_machine" "test" {
   }
 
   admin_username = "adminuser"
-  admin_password = "P@ssword1234!"
+  admin_password = "P@ssword1234!!"
 }
 
