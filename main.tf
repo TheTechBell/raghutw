@@ -63,7 +63,7 @@ resource "azurerm_kubernetes_cluster" "demo" {
     node_count          = 1
     vm_size             = "Standard_B2s"
     type                = "VirtualMachineScaleSets"
-    availability_zones  = ["1", "2"]
+#    availability_zones  = ["1", "2"]
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 3
