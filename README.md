@@ -1,4 +1,4 @@
-## Azure Terraform CI/CD Pipeline <br>
+## Azure Terraform CI/CD Pipeline for hosting LAMP on AKS <br>
 # Prerequisites<br>
 
 1. Create account on terraform cloud
