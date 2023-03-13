@@ -15,15 +15,15 @@
  - https://learn.microsoft.com/en-us/azure/storage/blobs/blob-containers-portal
    Include details from blob storage container in main.tf for backend configuration
 6. Set the follwoing env variable in terraform cloud:<br>
-   ARM_ACCESS_KEY - Storage key (az storage account keys list --resource-group {RG} --account-name {blobstoragerag} --query '[0].value' -o tsv) <br>
-   ARM_CLIENT_ID - Service principal app id <br>
-   ARM_CLIENT_SECRET - Service principal secret <br>
-   ARM_SUBSCRIPTION_ID - Azure subscription id <br>
-   ARM_TENANT_ID- Azure tenant id <br>
+   `ARM_ACCESS_KEY` - Storage key (`az storage account keys list --resource-group {RG} --account-name {blobstoragerag} --query '[0].value' -o tsv`) <br>
+   `ARM_CLIENT_ID` - Service principal app id <br>
+   `ARM_CLIENT_SECRET` - Service principal secret <br>
+   `ARM_SUBSCRIPTION_ID` - Azure subscription id <br>
+   `ARM_TENANT_ID- Azure` tenant id <br>
 
-=========== <br>
+---
 All set :-) <br>
-=========== <br>
+--- 
 
-> #Pushing the files to github now will run the terraform pipeline
+**Pushing the files to github now will run the terraform pipeline**
 
