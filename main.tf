@@ -1,9 +1,3 @@
-provider "azurerm" {
-  # The "feature" block is required for AzureRM provider 2.x. 
-  # If you are using version 1.x, the "features" block is not allowed.
-  #version = "~>2.0"
-  features {}
-}
 
 #Create the blob storage backend in Azure before running this
 #Export access key and store in ARM_ACCESS_KEY
@@ -18,18 +12,6 @@ terraform {
   }
 }
 
-variable "prefix" {
-  description = "Value of the Name tag for the EC2 instance"
-  type        = string
-  default     = "raghutf"
-}
-
-
-variable "location" {
-  description = "Value of the Name tag for the EC2 instance"
-  type        = string
-  default     = "eastus"
-}
 
 
 
