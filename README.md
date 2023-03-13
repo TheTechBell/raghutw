@@ -22,7 +22,7 @@
    ARM_TENANT_ID- Azure tenant id <br>
 
 =========== <br>
->All set :-) <br>
+All set :-) <br>
 =========== <br>
-Pushing the files to github now will run the terraform pipeline
+#Pushing the files to github now will run the terraform pipeline
 
