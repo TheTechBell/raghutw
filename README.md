@@ -20,6 +20,9 @@
    `ARM_CLIENT_SECRET` - Service principal secret <br>
    `ARM_SUBSCRIPTION_ID` - Azure subscription id <br>
    `ARM_TENANT_ID- Azure` tenant id <br>
+7. Here Mediawiki is being install using Helm: 
+   - I have published Mediawiki on Artifact hub. You can add repo with command  `helm repo add mediawiki https://thetechbell.github.io/helm/`
+     Note: Here it's already automated as in part of pipeline.
 
 ---
 All set :-) <br>
