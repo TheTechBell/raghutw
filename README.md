@@ -24,8 +24,9 @@
    - I have published Mediawiki on Artifact hub. You can add repo with command  `helm repo add mediawiki https://thetechbell.github.io/helm/`
      Note: Here it's already automated as in part of pipeline.    
 8. Refer to https://github.com/TheTechBell/helm <br>
-   Check the helm files : https://github.com/TheTechBell/helm/tree/main/twmediawiki <br>
-                          https://github.com/TheTechBell/helm/tree/main/twmediawiki/templates ( For Scripts & Deployment files)
+   Check the helm files : <br>
+   https://github.com/TheTechBell/helm/tree/main/twmediawiki <br>
+   https://github.com/TheTechBell/helm/tree/main/twmediawiki/templates ( For Scripts & Deployment files)
    
 
 ---
