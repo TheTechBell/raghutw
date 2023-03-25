@@ -95,64 +95,11 @@ provider "helm" {
   }
 }
 
-resource "helm_release" "nginx_ingress" {
-  name = "nginx-ingress-controller"
+resource "helm_release" "mediawiki" {
+  name = "mediawiki"
   namespace = "default"
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "nginx-ingress-controller"
-  
-  set {
-    name  = "service.type"
-    value = "LoadBalancer"
-  }
-}
-resource "helm_release" "mysql" {
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "mysql"
-  name       = "mysql"
-  version    = "9.4.8"
-  namespace  = "default"
-
-  set {
-    name  = "mysqlRootPassword"
-    value = "mysecretpassword"
-  }
-
-  set {
-    name  = "mysqlUser"
-    value = "myuser"
-  }
-
-  set {
-    name  = "mysqlPassword"
-    value = "mypassword"
-  }
-
-  set {
-    name  = "mysqlDatabase"
-    value = "mydatabase"
-  }  
+  repository = "https://thetechbell.github.io/helm/"
+  chart      = "mediawiki"
 }
 
-
-
-
-resource "helm_release" "apache" {
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "apache"
-  name       = "apache"
-  version    = "9.2.11"
-  namespace  = "default"
-
-}
-
-
-resource "helm_release" "lamp" {
-  repository = "https://lead4good.github.io/lamp-helm-repository"
-  chart      = "lamp"
-  name       = "my-lamp"
-  version    = "1.1.5"
-  namespace  = "default"
-
-}
 
